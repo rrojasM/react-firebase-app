@@ -4,17 +4,17 @@ import { getFirestore } from "firebase/firestore";
 
 // CONFIGURACIÓN DE FIREBASE
 const firebaseConfig = {
-  apiKey: "AIzaSyA2FhEeOJYQqtuhRXlmTrw9c_oonM_qay0",
-  authDomain: "fir-react-90f32.firebaseapp.com",
-  projectId: "fir-react-90f32",
-  storageBucket: "fir-react-90f32.appspot.com",
-  messagingSenderId: "645910012713",
-  appId: "1:645910012713:web:4704978dfeb4e9bf344d38"
+  apiKey: "AIzaSyDUykyITKTY7VQ-BQBs3fN9qyv_gCbUu7s",
+  authDomain: "react-app-742c2.firebaseapp.com",
+  projectId: "react-app-742c2",
+  storageBucket: "react-app-742c2.appspot.com",
+  messagingSenderId: "348967126421",
+  appId: "1:348967126421:web:35e30446830ddf45bd629c",
+  measurementId: "G-EQH7QRKZJW"
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-
 const db = getFirestore(app);
 
 export default db; 
