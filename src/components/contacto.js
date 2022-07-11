@@ -1,25 +1,56 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { doc, deleteDoc, updateDoc } from "firebase/firestore";
 import db from './../firebase/firebaseConfig';
 
 const Contacto = (props) => {
     const { id, nombre, correo } = props;
     const [editar, setEditar] = useState(false);
+    const [actualizarNombre, setActualizarNombre] = useState(nombre);
+    const [actualizarCorreo, setActualizarCorreo] = useState(correo);
+
+    const actualizarContacto = async (e) => {
+        e.preventDefault();
+        try {
+            await updateDoc(doc(db, 'users', id), {
+                nombre: actualizarNombre,
+                correo: actualizarCorreo
+            })
+        } catch (error) {
+            console.log(error);
+        }
+
+        setEditar(false);
+    }
+
+    const eliminarContacto = async (id) => {
+        try {
+            await deleteDoc(doc(db, 'users', id))
+
+        } catch (error) {
+            console.log(error);
+        }
+
+    }
 
     return (
         <ContenedorContacto>
             {
                 editar ?
-                    <form>
+                    <form onSubmit={actualizarContacto}>
                         <Input
                             type="text"
                             name="nombre"
                             placeholder="Nombre"
+                            value={actualizarNombre}
+                            onChange={(e) => { setActualizarNombre(e.target.value) }}
                         />
                         <Input
                             type="email"
                             name="Correo"
                             placeholder="Correo"
+                            value={actualizarCorreo}
+                            onChange={(e) => { setActualizarCorreo(e.target.value) }}
                         />
                         <Boton type="submit">Actualizar</Boton>
                     </form>
@@ -28,7 +59,7 @@ const Contacto = (props) => {
                         <Nombre>{nombre}</Nombre>
                         <Correo>{correo}</Correo>
                         <Boton onClick={() => { setEditar(!editar) }}>Editar</Boton>
-                        <Boton>Borrar</Boton>
+                        <Boton onClick={() => { eliminarContacto(id) }}>Borrar</Boton>
 
                     </>
             }
